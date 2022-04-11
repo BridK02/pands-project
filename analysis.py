@@ -39,18 +39,38 @@ with open(txt_file, "w") as my_output_file:
 #because I am working with tabular data in Python I will use (import) the Python Data Analysis Library  
 #ref https://datacarpentry.org/python-ecology-lesson/02-starting-with-data/
 import pandas as pd
+import matplotlib.pyplot as plt # allow me to plot the data
 #creating a dataframe of the iris csv
-iris_df=pd.read_csv("iris.csv")
+df=pd.read_csv("iris.csv")
 #testing how the df looks
-print (iris_df)
+print (df)
 
-print (iris_df.columns)
+print (df.columns)
 
-print (iris_df.sepallength)
-print (iris_df.sepalwidth)
-print (iris_df.petallength)
-print (iris_df.petalwidth)
-print (iris_df['class'])# finding the right syntax to get around class was a half hour I won't get back in my life
+print (df.sepallength)
+print (df.sepalwidth)
+print (df.petallength)
+print (df.petalwidth)
+print (df['class'])# finding the right syntax to get around class was a half hour I won't get back in my life
+
+meanValues= df.groupby('class').mean() #find the means of the four measurements using the groupby  function on class 
+maxValues= df.groupby('class').max()
+minValues= df.groupby('class').min()
+
+
+print(meanValues)
+print(maxValues)
+print(minValues)
+
+#df.plot.scatter(x='class',y = 'sepallength')
+ax = df.plot.scatter(x="class", y="sepallength", color="DarkBlue", label="sepallength")
+df.plot.scatter(x="class", y="sepalwidth", color="DarkGreen", label="sepalwidth", ax=ax);
+df.plot.scatter(x="class", y="petallength", color="DarkRed", label="petallength", ax=ax);
+df.plot.scatter(x="class", y="petalwidth", color="Yellow", label="petalwidth", ax=ax);
+
+plt.savefig('scatterplot.png')
+
+plt.show()
 
 
 
