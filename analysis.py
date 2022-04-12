@@ -1,7 +1,7 @@
 # Analysis of Fisher’s Iris data set
 # Author Brid Kennedy
 
-
+#dataset downloaded from http://archive.ics.uci.edu/ml/datasets/Iris and saved in my PANDS-PROJECT folder as iris.csv
 #first thing to is test that I can manipulate the data as a csv file
 
 import csv
@@ -23,29 +23,34 @@ with open(csv_file, "r") as my_input_file:
         #fields: sepallength sepalwidth petallength,petalwidth,class which are delimited by commas. 
         text_list.append(" ".join(line))
 
-with open(txt_file, "w") as my_output_file:
+'''with open(txt_file, "w") as my_output_file:
     my_output_file.write("#1\n")
     my_output_file.write("double({},{})\n".format(len(text_list), 5))
     for line in text_list:
         my_output_file.write("  " + line)
-    print('File Successfully written.')
+    print('File Successfully written.')'''
 
 #The above has created a text file that has removed the commas
 
-#All resources seem to point to pandas to group or summarise the variables. I take the variables to mean sepal length, width etc
+#All resources seem to point to pandas to group or summarise the variables. 
+# I take the variables to mean sepal length, width etc
     
 
 
 #because I am working with tabular data in Python I will use (import) the Python Data Analysis Library  
 #ref https://datacarpentry.org/python-ecology-lesson/02-starting-with-data/
 import pandas as pd
+import seaborn as sns #data visualisation library
 import matplotlib.pyplot as plt # allow me to plot the data
 #creating a dataframe of the iris csv
 df=pd.read_csv("iris.csv")
 #testing how the df looks
 print (df)
+print (df.dtypes) #summary of the data types to see if anything in the df needs to be cleaned up
+#the df.dtypes above shows that the class is of tpye objects
 
-print (df.columns)
+print (df.dtypes)
+print (df)
 
 print (df.sepallength)
 print (df.sepalwidth)
@@ -62,7 +67,7 @@ print(meanValues)
 print(maxValues)
 print(minValues)
 
-#df.plot.scatter(x='class',y = 'sepallength')
+'''#df.plot.scatter(x='class',y = 'sepallength')
 ax = df.plot.scatter(x="class", y="sepallength", color="DarkBlue", label="sepallength")
 df.plot.scatter(x="class", y="sepalwidth", color="DarkGreen", label="sepalwidth", ax=ax);
 df.plot.scatter(x="class", y="petallength", color="DarkRed", label="petallength", ax=ax);
@@ -70,8 +75,12 @@ df.plot.scatter(x="class", y="petalwidth", color="Yellow", label="petalwidth", a
 
 plt.savefig('scatterplot.png')
 
+plt.show()'''
+
+#df.plot(kind ='scatter', x ='sepallength', y ='sepalwidth')
+
+sns.set_style('whitegrid') #using seaborn to distinguish between the 3 classes https://medium.com/@Ansh_Patel/deep-dive-eda-on-iris-dataset-e8b04faf2bf7
+sns.FacetGrid(df, hue = 'class', height = 5)\
+.map(sns.scatterplot, 'sepallength', 'sepalwidth')\
+.add_legend()
 plt.show()
-
-
-
-
