@@ -42,45 +42,65 @@ with open(csv_file, "r") as my_input_file:
 import pandas as pd
 import seaborn as sns #data visualisation library
 import matplotlib.pyplot as plt # allow me to plot the data
+import numpy as np
 #creating a dataframe of the iris csv
-df=pd.read_csv("iris.csv")
-#testing how the df looks
-print (df)
-print (df.dtypes) #summary of the data types to see if anything in the df needs to be cleaned up
-#the df.dtypes above shows that the class is of tpye objects
+iris_df=pd.read_csv("iris.csv")
+'''#testing how the iris_
+#df looks
+print (iris_df)
+print (iris_df.dtypes) #summary of the data types to see if anything in the iris_df needs to be cleaned up
+#the iris_
+#df.dtypes above shows that the class is of type objects'''
+'''iris_df.info() #this info shows that there are no null values and that the data again the the length and width 
+#values are numerical whereas the class value are categorical
 
-print (df.dtypes)
-print (df)
+print (iris_df.sepallength)
+print (iris_df.sepalwidth)
+print (iris_df.petallength)
+print (iris_df.petalwidth)
+print (iris_df['class'])# finding the right syntax to get around class was a half hour I won't get back in my life
 
-print (df.sepallength)
-print (df.sepalwidth)
-print (df.petallength)
-print (df.petalwidth)
-print (df['class'])# finding the right syntax to get around class was a half hour I won't get back in my life
-
-meanValues= df.groupby('class').mean() #find the means of the four measurements using the groupby  function on class 
-maxValues= df.groupby('class').max()
-minValues= df.groupby('class').min()
+meanValues= iris_df.groupby('class').mean() #find the means of the four measurements using the groupby  function on class 
+maxValues= iris_df.groupby('class').max()
+minValues= iris_df.groupby('class').min()
 
 
 print(meanValues)
 print(maxValues)
 print(minValues)
 
-'''#df.plot.scatter(x='class',y = 'sepallength')
-ax = df.plot.scatter(x="class", y="sepallength", color="DarkBlue", label="sepallength")
-df.plot.scatter(x="class", y="sepalwidth", color="DarkGreen", label="sepalwidth", ax=ax);
-df.plot.scatter(x="class", y="petallength", color="DarkRed", label="petallength", ax=ax);
-df.plot.scatter(x="class", y="petalwidth", color="Yellow", label="petalwidth", ax=ax);
+#iris_df.plot.scatter(x='class',y = 'sepallength')
+ax = iris_df.plot.scatter(x="class", y="sepallength", color="DarkBlue", label="sepallength")
+iris_df.plot.scatter(x="class", y="sepalwidth", color="DarkGreen", label="sepalwidth", ax=ax);
+iris_df.plot.scatter(x="class", y="petallength", color="DarkRed", label="petallength", ax=ax);
+iris_df.plot.scatter(x="class", y="petalwidth", color="Yellow", label="petalwidth", ax=ax);
 
 plt.savefig('scatterplot.png')
 
 plt.show()'''
 
-#df.plot(kind ='scatter', x ='sepallength', y ='sepalwidth')
+#iris_df.plot(kind ='scatter', x ='sepallength', y ='sepalwidth')
 
 sns.set_style('whitegrid') #using seaborn to distinguish between the 3 classes https://medium.com/@Ansh_Patel/deep-dive-eda-on-iris-dataset-e8b04faf2bf7
-sns.FacetGrid(df, hue = 'class', height = 5)\
+sns.FacetGrid(iris_df, hue = 'class', height = 5)\
 .map(sns.scatterplot, 'sepallength', 'sepalwidth')\
 .add_legend()
-plt.show()
+plt.savefig('Figure 1 Sepal characteristic colour coded 2D scatter plot.png')
+#the colour coding of this plot shows good separation of iris's of the 
+#setosa class based on sepal characteristic in comaprison to versicolour and virginica,
+#this indicates that these two classes of Iris can be classified based on the two sepal measurements
+sns.set_style('whitegrid')
+sns.pairplot(iris_df, hue = 'class')
+plt.savefig('Figure 2 Bivariate analysis.png')
+#the bivariate analysis really shows the large overlap between versicolour and virginica when it comes to sepal length and width 
+#however there is significantly better seperation of these two classes using the petal length and width however there remains some overlap
+
+fig, axes = plt.subplots(2, 2, figsize = (14, 9))
+sns.boxplot(data = iris_df, x = 'class', y = 'petallength',ax = axes[0,0])
+sns.boxplot(data = iris_df, x = 'class', y = 'petalwidth',
+ax = axes[0,1])
+sns.boxplot(data = iris_df, x = 'class', y = 'sepallength',
+ax = axes[1,0])
+sns.boxplot(data = iris_df, x = 'class', y = 'sepalwidth',
+ax = axes[1,1])
+plt.savefig('Figure 3 Box plots.png')
