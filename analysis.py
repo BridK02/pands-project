@@ -34,10 +34,7 @@ with open(csv_file, "r") as my_input_file:
 
 #All resources seem to point to pandas to group or summarise the variables. 
 # I take the variables to mean sepal length, width etc
-    
-
-
-#because I am working with tabular data in Python I will use (import) the Python Data Analysis Library  
+# #because I am working with tabular data in Python I will use (import) the Python Data Analysis Library  
 #ref https://datacarpentry.org/python-ecology-lesson/02-starting-with-data/
 import pandas as pd
 import seaborn as sns #data visualisation library
@@ -45,13 +42,12 @@ import matplotlib.pyplot as plt # allow me to plot the data
 import numpy as np
 #creating a dataframe of the iris csv
 iris_df=pd.read_csv("iris.csv")
-'''#testing how the iris_
-#df looks
+'''#testing how the iris_df looks
 print (iris_df)
-print (iris_df.dtypes) #summary of the data types to see if anything in the iris_df needs to be cleaned up
-#the iris_
-#df.dtypes above shows that the class is of type objects'''
-'''iris_df.info() #this info shows that there are no null values and that the data again the the length and width 
+print (iris_df.dtypes) #summary of the data types to see if anything in the 
+iris_df needs to be cleaned up
+#the iris_df.dtypes above shows that the class is of type objects'''
+iris_df.info() #this info shows that there are no null values and that the data again the the length and width 
 #values are numerical whereas the class value are categorical
 
 print (iris_df.sepallength)
@@ -77,7 +73,7 @@ iris_df.plot.scatter(x="class", y="petalwidth", color="Yellow", label="petalwidt
 
 plt.savefig('scatterplot.png')
 
-plt.show()'''
+plt.show()
 
 #iris_df.plot(kind ='scatter', x ='sepallength', y ='sepalwidth')
 
