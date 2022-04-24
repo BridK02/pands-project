@@ -65,29 +65,63 @@ print(meanValues)
 print(maxValues)
 print(minValues)
 
-iris_df.plot.scatter(x='class',y = 'sepallength')
-ax = iris_df.plot.scatter(x="class", y="sepallength", color="DarkBlue", label="sepallength")
-iris_df.plot.scatter(x="class", y="sepalwidth", color="DarkGreen", label="sepalwidth", ax=ax);
-iris_df.plot.scatter(x="class", y="petallength", color="DarkRed", label="petallength", ax=ax);
-iris_df.plot.scatter(x="class", y="petalwidth", color="Yellow", label="petalwidth", ax=ax);
+plt.figure(figsize = (10, 7))
+x = iris_df["sepallength"]
 
-plt.savefig('scatterplot.png')
+plt.hist(x, bins = 20, color = "green")
+plt.title("Sepal Length in cm")
+plt.xlabel("Sepallength_cm")
+plt.ylabel("Count")
+plt.savefig('Figure 1a histogramsepallength.png')
 
-plt.show()
+plt.figure(figsize = (10, 7))
+x = iris_df["sepalwidth"]
 
-#iris_df.plot(kind ='scatter', x ='sepallength', y ='sepalwidth')
+plt.hist(x, bins = 20, color = "blue")
+plt.title("Sepal Width in cm")
+plt.xlabel("Sepalwidth_cm")
+plt.ylabel("Count")
+plt.savefig('Figure 1b histogramsepalwidth.png')
+
+plt.figure(figsize = (10, 7))
+x = iris_df["petalwidth"]
+
+plt.hist(x, bins = 20, color = "red")
+plt.title("Petal Width in cm")
+plt.xlabel("Petalwidth_cm")
+plt.ylabel("Count")
+plt.savefig('Figure 1c histogrampetalwidth.png')
+
+plt.figure(figsize = (10, 7))
+x = iris_df["petallength"]
+
+plt.hist(x, bins = 20, color = "yellow")
+plt.title("Petal Length in cm")
+plt.xlabel("PetalLength_cm")
+plt.ylabel("Count")
+plt.savefig('Figure 1d histogrampetallength.png')
+
+iris_df.plot(kind ='scatter', x ='sepallength', y ='sepalwidth')
 
 sns.set_style('whitegrid') #using seaborn to distinguish between the 3 classes https://medium.com/@Ansh_Patel/deep-dive-eda-on-iris-dataset-e8b04faf2bf7
 sns.FacetGrid(iris_df, hue = 'class', height = 5)\
 .map(sns.scatterplot, 'sepallength', 'sepalwidth')\
 .add_legend()
-plt.savefig('Figure 1 Sepal characteristic colour coded 2D scatter plot.png')
+plt.savefig('Figure 2 Sepal characteristic colour coded 2D scatter plot.png')
 #the colour coding of this plot shows good separation of iris's of the 
 #setosa class based on sepal characteristic in comaprison to versicolour and virginica,
 #this indicates that these two classes of Iris can be classified based on the two sepal measurements
+
+# repeat of above for petal characteristics
+sns.set_style('whitegrid') 
+sns.FacetGrid(iris_df, hue = 'class', height = 5)\
+.map(sns.scatterplot, 'petallength', 'petalwidth')\
+.add_legend()
+plt.savefig('Figure 3 Petal characteristic colour coded 2D scatter plot.png')
+
 sns.set_style('whitegrid')
 sns.pairplot(iris_df, hue = 'class')
-plt.savefig('Figure 2 Bivariate analysis.png')
+plt.savefig('Figure 4 Bivariate analysis.png')
 #the bivariate analysis really shows the large overlap between versicolour and virginica when it comes to sepal length and width 
 #however there is significantly better seperation of these two classes using the petal length and width however there remains some overlap
 
@@ -99,4 +133,4 @@ sns.boxplot(data = iris_df, x = 'class', y = 'sepallength',
 ax = axes[1,0])
 sns.boxplot(data = iris_df, x = 'class', y = 'sepalwidth',
 ax = axes[1,1])
-plt.savefig('Figure 3 Box plots.png')
+plt.savefig('Figure 5 Box plots.png')
