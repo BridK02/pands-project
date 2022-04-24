@@ -42,11 +42,11 @@ import matplotlib.pyplot as plt # allow me to plot the data
 import numpy as np
 #creating a dataframe of the iris csv
 iris_df=pd.read_csv("iris.csv")
-'''#testing how the iris_df looks
+#testing how the iris_df looks
 print (iris_df)
-print (iris_df.dtypes) #summary of the data types to see if anything in the 
-iris_df needs to be cleaned up
-#the iris_df.dtypes above shows that the class is of type objects'''
+print (iris_df.dtypes) #summary of the data types to see if anything in the df needs cleaning up
+iris_df 
+#the iris_df.dtypes above shows that the class is of type objects
 iris_df.info() #this info shows that there are no null values and that the data again the the length and width 
 #values are numerical whereas the class value are categorical
 
@@ -65,7 +65,7 @@ print(meanValues)
 print(maxValues)
 print(minValues)
 
-#iris_df.plot.scatter(x='class',y = 'sepallength')
+iris_df.plot.scatter(x='class',y = 'sepallength')
 ax = iris_df.plot.scatter(x="class", y="sepallength", color="DarkBlue", label="sepallength")
 iris_df.plot.scatter(x="class", y="sepalwidth", color="DarkGreen", label="sepalwidth", ax=ax);
 iris_df.plot.scatter(x="class", y="petallength", color="DarkRed", label="petallength", ax=ax);
