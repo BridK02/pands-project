@@ -101,6 +101,30 @@ plt.xlabel("PetalLength_cm")
 plt.ylabel("Count")
 plt.savefig('Figure 1d histogrampetallength.png')
 
+#without colour to seperate the species it is difficult to distinguish the 3 classes in the 
+#above generated histograms. Below I used seaborn to give colour to each class of Iris in each histogram
+
+fig, ax = plt.subplots(figsize=(4, 4))
+sns.histplot(data=iris_df, x='sepallength', hue='class')
+ax.set_title('Sepal_Length_cm')
+plt.savefig('Figure 1a.1 histogramsepallength.png')
+
+
+fig, ax = plt.subplots(figsize=(4, 4))
+sns.histplot(data=iris_df, x='sepalwidth', hue='class')
+ax.set_title('Sepal_Width_cm')
+plt.savefig('Figure 1b.1 histogramsepallwidth.png')
+
+fig, ax = plt.subplots(figsize=(4, 4))
+sns.histplot(data=iris_df, x='petallength', hue='class')
+ax.set_title('Petal_Length_cm')
+plt.savefig('Figure 1c.1 histogrampetallength.png')
+
+fig, ax = plt.subplots(figsize=(4, 4))
+sns.histplot(data=iris_df, x='petalwidth', hue='class')
+ax.set_title('Petal_Width_cm')
+plt.savefig('Figure 1d.1 histogrampetalwidth.png')
+
 iris_df.plot(kind ='scatter', x ='sepallength', y ='sepalwidth')
 
 sns.set_style('whitegrid') #using seaborn to distinguish between the 3 classes https://medium.com/@Ansh_Patel/deep-dive-eda-on-iris-dataset-e8b04faf2bf7
