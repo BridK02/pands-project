@@ -23,12 +23,12 @@ with open(csv_file, "r") as my_input_file:
         #fields: sepallength sepalwidth petallength,petalwidth,class which are delimited by commas. 
         text_list.append(" ".join(line))
 
-'''with open(txt_file, "w") as my_output_file:
+with open(txt_file, "w") as my_output_file:
     my_output_file.write("#1\n")
     my_output_file.write("double({},{})\n".format(len(text_list), 5))
     for line in text_list:
         my_output_file.write("  " + line)
-    print('File Successfully written.')'''
+    print('File Successfully written.')
 
 #The above has created a text file that has removed the commas
 
@@ -40,30 +40,32 @@ import pandas as pd
 import seaborn as sns #data visualisation library
 import matplotlib.pyplot as plt # allow me to plot the data
 import numpy as np
+with open("summary.txt", "a") as f:#opening another txt file and appending some data summary info to it
 #creating a dataframe of the iris csv
-iris_df=pd.read_csv("iris.csv")
+    iris_df=pd.read_csv("iris.csv")
 #testing how the iris_df looks
-print (iris_df)
-print (iris_df.dtypes) #summary of the data types to see if anything in the df needs cleaning up
-iris_df 
-#the iris_df.dtypes above shows that the class is of type objects
-iris_df.info() #this info shows that there are no null values and that the data again the the length and width 
-#values are numerical whereas the class value are categorical
+    print (iris_df.dtypes, file = f) #summary of the data types to see if anything in the df needs cleaning up
+#the iris_df.dtypes above shows that the class is of type objects. Both print and append to summary txt file
+    iris_df.info(buf=f) #this info shows that there are no null values and that the data again the the length and width 
+#values are numerical whereas the class value are categorical. Both print and append to summary txt file
 
-print (iris_df.sepallength)
-print (iris_df.sepalwidth)
-print (iris_df.petallength)
-print (iris_df.petalwidth)
-print (iris_df['class'])# finding the right syntax to get around class was a half hour I won't get back in my life
+with open("summary.txt", "a") as f: 
+    print (iris_df.sepallength, file = f)
+    print (iris_df.sepalwidth, file = f)
+    print (iris_df.petallength,file = f )
+    print (iris_df.petalwidth, file = f)
+    print (iris_df['class'], file = f)# I couldn't just enter .class as it through a syntax error, after a lot of faffing I ended up with the
+# word class inside square brackets 
 
-meanValues= iris_df.groupby('class').mean() #find the means of the four measurements using the groupby  function on class 
-maxValues= iris_df.groupby('class').max()
-minValues= iris_df.groupby('class').min()
+with open("summary.txt", "a") as f: 
+    meanValues= iris_df.groupby('class').mean() #find the means of the four measurements using the groupby  function on class 
+    maxValues= iris_df.groupby('class').max()
+    minValues= iris_df.groupby('class').min()
 
 
-print(meanValues)
-print(maxValues)
-print(minValues)
+    print(meanValues, file =f)
+    print(maxValues, file =f)
+    print(minValues, file =f)
 
 plt.figure(figsize = (10, 7))
 x = iris_df["sepallength"]
